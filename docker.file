@@ -1,0 +1,21 @@
+# Use the official .NET SDK image to build and publish the application
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the project files to the container
+COPY ./src/SampleApp/*.csproj ./src/SampleApp/
+RUN dotnet restore ./src/SampleApp/SampleApp.csproj
+
+# Copy the rest of the application code and build it
+COPY ./src ./src
+RUN dotnet publish ./src/SampleApp/SampleApp.csproj -c Release -o /out
+
+# Use the runtime image for running the application
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+WORKDIR /app
+COPY --from=build /out .
+
+# Set the entry point for the container
+ENTRYPOINT ["dotnet", "SampleApp.dll"]
