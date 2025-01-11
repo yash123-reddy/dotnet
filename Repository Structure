@@ -1,0 +1,11 @@
+sample-dotnet-app/
+├── src/
+│   ├── SampleApp/
+│   │   ├── Program.cs
+│   │   ├── Startup.cs
+│   │   ├── appsettings.json
+│   │   ├── appsettings.Development.json
+│   │   ├── SampleApp.csproj
+├── .dockerignore
+├── Dockerfile
+├── README.md
